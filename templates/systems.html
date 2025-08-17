@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System of Equations Solver</title>
+    <link href="/static/style2.css" rel="stylesheet">
+    <link href="/static/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style3.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+</head>
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">TuniMath</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarColor01">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/">Home
+                                <span class="visually-hidden">(current)</span>
+                            </a>
+                        </li>
+                        </ul>
+                    <a class="d-flex" href="/logout"> Logout</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <div class="calculator">
+            <h2 class="text-center">Enter Equations</h2>
+            <form id="solveForm">
+                <input type="hidden" id="numVariables" name="numVariables" value="{{ variables|length }}">
+                {% for variable in variables %}
+                    <div class="form-group">
+                        <label for="eq{{ variable }}">Equation {{ variable }}:</label>
+                        <input type="text" class="form-control" id="eq{{ variable }}" name="eq{{ variable }}" required>
+                    </div>
+                {% endfor %}
+                <button type="submit" class="btn btn-primary mt-3">Solve</button>
+            </form>
+            <div id="result" class="result"></div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('solveForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const response = await fetch('/solve_system', {
+                method: 'POST',
+                body: formData
+            });
+            const result = await response.json();
+            let resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '<h4>Solution:</h4>';
+            for (let variable in result) {
+                resultDiv.innerHTML += `<p>${variable} = ${result[variable]}</p>`;
+            }
+        });
+    </script>
+</body>
+</html>

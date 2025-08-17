@@ -1,0 +1,137 @@
+
+
+.navbar {
+    background: linear-gradient(90deg, #00d4ff, #6a0d91);
+    background-color: #0a0a2b !important;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 50px;
+            color: #00d4ff;
+            text-shadow: 0px 0px 10px #00d4ff;
+        }
+
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .card {
+            background-color: #1c1c3b;
+            border-radius: 15px;
+            width: 300px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0px 0px 15px rgba(0, 212, 255, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0px 0px 25px rgba(0, 212, 255, 0.6);
+            scale : 100%;
+        }
+        .card a{
+            color:aqua;
+        }
+        .card a:hover {
+            color: #ff007f;
+            scale: 110% ; /* Magenta accent */
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            color: #00d4ff;
+            margin-bottom: 20px;
+        }
+
+        .card p {
+            font-size: 1rem;
+            color: #cfd7e6;
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card {
+            animation: fadeInUp 1s ease;
+        }
+        body {
+            background: linear-gradient(135deg, #0a0a2b, #4b1d8f, #00d4ff);
+            color: #e0e4f1;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            margin-bottom: 20px; /* Space between navbar and content */
+        }
+
+        .calculator {
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.6);
+            width: 500px; /* Width of the calculator container */
+        }
+
+        #display {
+            background: #1c1c3b;
+            color: #00d4ff;
+            border: none;
+            font-size: 3rem; /* Font size for readability */
+            text-align: right;
+            padding: 20px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            height: 80px; /* Height of the display */
+            width: 100%; /* Full width */
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        button {
+            background: #171752;
+            color: #00d4ff;
+            border: none;
+            font-size: 1.5rem;
+            border-radius: 5px;
+            padding: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background: #0a0a2b;
+            color: #e0e4f1;
+        }
+
+        button.btn-success {
+            background: #00d4ff;
+            color: #171752;
+        }
+
+        button.btn-success:hover {
+            background: #00a8e0;
+            color: #171752;
+        }

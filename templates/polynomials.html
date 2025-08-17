@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Polynomials Operations</title>
+    <link href="/static/style2.css" rel="stylesheet">
+    <link href="/static/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style3.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+         .calculator {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 700px;
+        margin-top: -220px;
+        padding-top:40px;
+        padding-bottom:40px;
+    }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">TuniMath</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarColor01">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/">Home</a>
+                        </li>
+                    </ul>
+                    <a class="d-flex" href="/logout">Logout</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="calculator">
+            <h2 class="text-center">Polynomial Operations</h2>
+            <form id="solveForm">
+                <div class="form-group">
+                    <label for="polynome1">Polynomial 1</label>
+                    <input type="text" class="form-control" id="polynome1" name="polynome1" required>
+                </div>
+                <div class="form-group">
+                    <label for="polynome2">Polynomial 2</label>
+                    <input type="text" class="form-control" id="polynome2" name="polynome2">
+                </div>
+                <input type="hidden" id="operation" name="operation">
+                <button type="button" class="btn btn-primary mt-3" onclick="performOperation('roots')">Roots</button>
+                <button type="button" class="btn btn-primary mt-3" onclick="performOperation('gcd')">GCD</button>
+                <button type="button" class="btn btn-primary mt-3" onclick="performOperation('division')">Division</button>
+                <div class="form-group">
+                    <label for="roots">Roots of Polynomial 1</label>
+                    <input type="text" class="form-control" id="roots" name="roots" placeholder="Roots of Polynomial 1" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="gcd">GCD</label>
+                    <input type="text" class="form-control" id="gcd" name="gcd" placeholder="GCD" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="division">Division</label>
+                    <input type="text" class="form-control" id="division" name="division" placeholder="Division" readonly>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+      async function performOperation(operation) {
+    const form = document.getElementById('solveForm');
+    const formData = new FormData(form);
+    formData.set('operation', operation);
+
+    const response = await fetch('/solve_poly', {
+        method: 'POST',
+        body: formData
+    });
+
+    const result = await response.json();
+
+   
+    console.log(result);
+
+    if (result[operation]) {
+        document.getElementById(operation).value = result[operation];
+    } else {
+        document.getElementById(operation).value = "Operation failed or returned undefined";
+    }
+}
+
+    </script>
+</body>
+</html>

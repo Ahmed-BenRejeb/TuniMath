@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+
+{% block main %}
+<link rel="stylesheet" href="/static/style3.css">
+<style>
+    .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: calc(100vh - 100px);
+        margin-top: 150px; 
+    }
+
+    .plot-container, .derivative-container {
+        background: rgba(0, 0, 0, 0.7);
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0, 212, 255, 0.6);
+        margin-top: 30px;
+        margin-bottom: 10px;
+        width: 100%;
+    }
+    .derivative-container{
+
+
+        width: 500px;
+
+    }
+input{
+    width: 80%;
+}
+
+</style>
+
+<div class="container">
+    <div class="plot-container">
+
+        <div class="graph">
+            {{ plot_div|safe }}
+        </div>
+    </div>
+
+    <div class="derivative-container">
+        <h2>Function</h2>
+        <input type="text" id="deriv" class="input-large" name="function" value="{{ l[0] }}" readonly >
+        <h2>Derivative</h2>
+        <input type="text" id="deriv" class="input-large" name="function" value="{{ l[1] }}" readonly >
+        <h2>Antiderivative</h2>
+
+        <input type="text" id="antideriv" class="input-large" name="function" value="{{ l[2] }}" readonly >
+
+    </div>
+</div>
+
+{% endblock %}

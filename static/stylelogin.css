@@ -1,0 +1,88 @@
+body {
+    background: linear-gradient(135deg, #3a0c6c, #00bcd4, #d62d91, #00bcd4); /* Nebula-inspired gradient */
+    color: #fff;
+    overflow: hidden; /* To prevent scrollbars */
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    margin-bottom: 20px; /* Space between navbar and content */
+}
+
+.login-form {
+    background: rgba(0, 0, 0, 0.8); /* Darker semi-transparent background */
+    padding: 2rem;
+    border-radius: 12px; /* Slightly rounded corners */
+    width: 100%;
+    max-width: 400px;
+    opacity: 0; /* Initially hidden */
+    transform: translateY(-30px); /* Initially above the viewport */
+    box-shadow: 0 10px 20px rgba(255, 105, 180, 0.4); /* Nebula-inspired shadow */
+    animation: fadeInUp 1s ease-out forwards; /* Animation */
+}
+
+.login-form h2 {
+    margin-bottom: 1rem;
+    color: #e962b3; /* Nebula pink color */
+    opacity: 0; /* Initially hidden */
+    transform: translateY(-30px); /* Initially above the heading */
+    animation: fadeInDown 0.6s ease-out 0.3s forwards; /* Animation with delay */
+}
+
+.form-group {
+    margin-bottom: 1rem;
+    opacity: 0; /* Initially hidden */
+    transform: translateY(-20px); /* Initially above the form group */
+    animation: fadeInUp 0.6s ease-out 0.6s forwards; /* Animation with delay */
+}
+
+input[type="text"],
+input[type="password"] {
+    border: 1px solid #d62d91; /* Nebula pink border */
+    background-color: rgba(0, 0, 0, 0.6); /* Darker input background */
+    color: #fff;
+    transition: background-color 0.3s, border-color 0.3s; /* Smooth transition */
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+    background-color: rgba(0, 0, 0, 0.8); /* Slightly lighter input background on focus */
+    border-color: #00bcd4; /* Cyan focus border */
+    box-shadow: 0 0 8px rgba(0, 188, 212, 0.8); /* Cyan glow effect */
+}
+
+.btn-primary {
+    background-color: #00bcd4;
+    border-color: #00bcd4;
+    box-shadow: 0 4px 8px rgba(0, 188, 212, 0.3); /* Cyan shadow effect */
+    transition: background-color 0.3s, border-color 0.3s, transform 0.3s; /* Smooth transition */
+}
+
+.btn-primary:hover {
+    background-color: #0097a7;
+    border-color: #0097a7;
+    transform: scale(1.05); /* Slightly enlarge button */
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

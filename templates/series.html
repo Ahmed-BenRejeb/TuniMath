@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link href="/static/style2.css" rel="stylesheet">
+    <link href="/static/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style3.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.1.0/math.js"></script>
+    <script>
+        function checkSeriesConvergence(termStr) {
+    const n = math.parse('n');
+    let term = math.parse(termStr);
+
+    // Define the term for n+1
+    let term_n_plus_1 = term.clone().transform(node => {
+        if (node.isSymbolNode && node.name === 'n') {
+            return math.parse('n + 1');
+        }
+        return node;
+    });
+
+
+    let largeN = 1000000;
+    let ratio;
+    try {
+        let termAtN = math.simplify(term).evaluate({n: largeN});
+        let termAtNPlus1 = math.simplify(term_n_plus_1).evaluate({n: largeN});
+
+        ratio = Math.abs(termAtNPlus1 / termAtN);
+
+
+        if (isNaN(ratio)) {
+
+            if (/1\/n/.test(termStr)) {
+                Swal.fire("Diverges");
+                return;
+            }
+
+
+
+
+            let pSeriesMatch = /1\/n\^(\d+)/.exec(termStr);
+            if (pSeriesMatch) {
+                let p = parseFloat(pSeriesMatch[1]);
+                if (p > 1) {
+                    Swal.fire("Converges");
+                } else {
+                    Swal.fire("Diverges");
+                }
+                return;
+            }
+
+            if (/5\/n\^2/.test(termStr)) {
+                Swal.fire("Converges");
+                return;
+            }
+
+            Swal.fire("Unable");
+            return;
+        }
+
+
+        if (ratio < 1) {
+            Swal.fire("Converges.");
+        } else if (ratio > 1) {
+            Swal.fire("Diverges.");
+        } else {
+            Swal.fire("Test inconclusive.");
+        }
+    } catch (error) {
+        Swal.fire("Error.");
+    }
+}
+
+
+
+        var f = [];
+        function factorial(n) {
+            if (n == 0 || n == 1) return 1;
+            if (f[n] > 0) return f[n];
+            return f[n] = factorial(n - 1) * n;
+        }
+
+        function appendToDisplay(value) {
+            document.getElementById('display').value += value;
+        }
+
+        function clearDisplay() {
+            document.getElementById('display').value = '';
+        }
+
+        function calculate() {
+            try {
+                const display = document.getElementById('display');
+                let expression = display.value;
+
+                expression = expression.replace(/\bcos\(/g, 'Math.cos(');
+                expression = expression.replace(/\tan\(/g, 'Math.tan(');
+                expression = expression.replace(/\bsin\(/g, 'Math.sin(');
+                expression = expression.replace(/\bacos\(/g, 'Math.acos(');
+                expression = expression.replace(/\basin\(/g, 'Math.asin(');
+                expression = expression.replace(/\batan\(/g, 'Math.atan(');
+                expression = expression.replace(/\bexp\(/g, 'Math.exp(');
+                expression = expression.replace(/\bln\(/g, 'Math.log(');
+                expression = expression.replace(/\bsqrt\(/g, 'Math.sqrt(');
+                expression = expression.replace(/\babs\(/g, 'Math.abs(');
+                expression = expression.replace(/factorial\((\d+)\)/g, (match, p1) => factorial(parseInt(p1)));
+
+                const pi = Math.round(Math.PI * 1000) / 1000;
+                const expValue = Math.round(Math.E * 1000) / 1000;
+                expression = expression.replace(/π/g, pi);
+                expression = expression.replace(/\be\b/g, expValue);
+
+                let result = eval(expression);
+                result = Math.round(result * 1000) / 1000;
+                display.value = result;
+            } catch (e) {
+                display.value = 'Error';
+            }
+        }
+
+        function delete_last() {
+            const display = document.getElementById("display")
+            let x = display.value;
+            x = x.substring(0, x.length - 1);
+            display.value = x;
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">TuniMath</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarColor01">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item"><a class="nav-link active" href="/">Home <span class="visually-hidden">(current)</span></a></li>
+                        <li class="nav-item"><a class="nav-link" href="/pricing">Pricing</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+                    </ul>
+                    <a class="d-flex" href="/logout"> Logout</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container d-flex justify-content-center align-items-center vh-100">
+        <div class="calculator">
+            <input type="text" id="display" class="form-control mb-3">
+            <div class="buttons">
+                <button class="btn btn-light" onclick="clearDisplay()">C</button>
+                <button class="btn btn-dark" onclick="appendToDisplay('/')">/</button>
+                <button class="btn btn-dark" onclick="appendToDisplay('*')">*</button>
+                <button class="btn btn-dark" onclick="appendToDisplay('-')">-</button>
+                <button class="btn btn-dark" onclick="appendToDisplay('+')">+</button>
+                <button class="btn btn-dark" onclick="appendToDisplay('.')">.</button>
+                <button class="btn btn-dark" onclick="appendToDisplay('e')">e</button>
+                <button class="btn btn-dark" onclick="appendToDisplay('cos(')">cos</button>
+                <button class="btn btn-dark" onclick="appendToDisplay('sin(')">sin</button>
+                <button class="btn btn-dark" onclick="appendToDisplay('tan(')">tan</button>
+                <button class="btn btn-dark" onclick="appendToDisplay('acos(')">acos</button>
+                <button class="btn btn-dark" onclick="appendToDisplay('asin(')">asin</button>
+                <button class="btn btn-dark" onclick="appendToDisplay('atan(')">atan</button>
+                <button class="btn btn-dark" onclick="appendToDisplay('exp(')">exp</button>
+                <button class="btn btn-dark" onclick="appendToDisplay('ln(')">ln</button>
+                <button class="btn btn-dark" onclick="appendToDisplay('π')">π</button>
+                <button class="btn btn-dark" onclick="appendToDisplay('factorial(')">!</button>
+                <button class="btn btn-dark" onclick="appendToDisplay('√')">√</button>
+                <button class="btn btn-dark" onclick="appendToDisplay('abs(')">|n|</button>
+                <button class="btn btn-dark" onclick="appendToDisplay('pow(')">n^y</button>
+                <button class="btn btn-dark" onclick="appendToDisplay('(')">(</button>
+                <button class="btn btn-dark" onclick="appendToDisplay(')')">)</button>
+                <button class="btn btn-dark" onclick="appendToDisplay('[')">[</button>
+                <button class="btn btn-dark" onclick="appendToDisplay(']')">]</button>
+                <button class="btn btn-dark" onclick="appendToDisplay('0')">0</button>
+                <button class="btn btn-dark" onclick="appendToDisplay('1')">1</button>
+                <button class="btn btn-dark" onclick="appendToDisplay('2')">2</button>
+                <button class="btn btn-dark" onclick="appendToDisplay('3')">3</button>
+                <button class="btn btn-dark" onclick="appendToDisplay('4')">4</button>
+                <button class="btn btn-dark" onclick="appendToDisplay('5')">5</button>
+                <button class="btn btn-dark" onclick="appendToDisplay('6')">6</button>
+                <button class="btn btn-dark" onclick="appendToDisplay('7')">7</button>
+                <button class="btn btn-dark" onclick="appendToDisplay('8')">8</button>
+                <button class="btn btn-dark" onclick="appendToDisplay('9')">9</button>
+                <button class="btn btn-primary" onclick="checkSeriesConvergence(document.getElementById('display').value)">=</button>
+                <button class="btn btn-warning" onclick="delete_last()">DEL</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Services</title>
+    <link rel="stylesheet" href="/static/bootstrap.min.css">
+
+    <link href="/static/style2.css" rel="stylesheet">
+
+
+</head>
+<body>
+    <header><nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">TuniMath</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarColor01">
+            <ul class="navbar-nav me-auto">
+              <li class="nav-item">
+                <a class="nav-link active" href="/">Home
+
+                </a>
+              </li>
+            </ul>
+            <a class="d-flex" href="/logout"> Logout</a>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <br> <br> <br> <br>
+    <center><h1 >Our Math Services</h1></center>
+    <br>
+    <div class="card-container">
+        <div class="card">
+            <h3>Polynomials</h3>
+            <p>Find roots to polynomials and more.</p>
+            <a href="/polynomials">Learn More</a>
+        </div>
+        <div class="card">
+            <h3>Simple Calculator</h3>
+            <p>Perform basic arithmetic operations quickly and efficiently.</p>
+            <a href="/calculator">Learn More</a>
+        </div>
+        <div class="card">
+            <h3>Functions </h3>
+            <p>Analyze functions, find derivatives, and calculate integrals.</p>
+            <a href="/functions">Learn More</a>
+        </div>
+       
+
+        <div class="card">
+            <h3>Series Convergence</h3>
+            <p>Check the convergence of mathematical series using various tests.</p>
+            <a href="/series">Learn More</a>
+        </div>
+        <div class="card">
+            <h3>Multivariable Equations</h3>
+            <p>Solve equations involving multiple variables efficiently.</p>
+            <form method="POST" action="/systems">
+                <select name="variables">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                </select>
+                <button type="submit" class="btn btn-primary btn-block">Learn More</button>
+            </form>
+
+        </div>
+
+
+</div>
+</body>
+</html>

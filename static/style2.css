@@ -1,0 +1,296 @@
+body {
+    background: linear-gradient(135deg, #0a0a2b, #4b1d8f, #00d4ff);
+    background-size: cover; /* Cover the entire viewport */
+    background-attachment: fixed; /* Keep it fixed while scrolling */
+    color: #e0e4f1;
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    overflow: auto;
+}
+
+.navbar {
+    margin-bottom: 20px; /* Space between navbar and content */
+}
+
+.login-form {
+    background: rgba(0, 0, 0, 0.8); /* Darker semi-transparent background */
+    padding: 2rem;
+    border-radius: 12px; /* Slightly rounded corners */
+    width: 100%;
+    max-width: 400px;
+    opacity: 0; /* Initially hidden */
+    transform: translateY(-30px); /* Initially above the viewport */
+    box-shadow: 0 10px 20px rgba(255, 105, 180, 0.4); /* Nebula-inspired shadow */
+    animation: fadeInUp 1s ease-out forwards; /* Animation */
+}
+
+.login-form h2 {
+    margin-bottom: 1rem;
+    color: #e962b3; /* Nebula pink color */
+    opacity: 0; /* Initially hidden */
+    transform: translateY(-30px); /* Initially above the heading */
+    animation: fadeInDown 0.6s ease-out 0.3s forwards; /* Animation with delay */
+}
+
+.form-group {
+    margin-bottom: 1rem;
+    opacity: 0; /* Initially hidden */
+    transform: translateY(-20px); /* Initially above the form group */
+    animation: fadeInUp 0.6s ease-out 0.6s forwards; /* Animation with delay */
+}
+
+input[type="text"],
+input[type="password"] {
+    border: 1px solid #d62d91; /* Nebula pink border */
+    background-color: rgba(0, 0, 0, 0.6); /* Darker input background */
+    color: #fff;
+    transition: background-color 0.3s, border-color 0.3s; /* Smooth transition */
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+    background-color: rgba(0, 0, 0, 0.8); /* Slightly lighter input background on focus */
+    border-color: #00bcd4; /* Cyan focus border */
+    box-shadow: 0 0 8px rgba(0, 188, 212, 0.8); /* Cyan glow effect */
+}
+
+.btn-primary {
+    background-color: #00bcd4;
+    border-color: #00bcd4;
+    box-shadow: 0 4px 8px rgba(0, 188, 212, 0.3); /* Cyan shadow effect */
+    transition: background-color 0.3s, border-color 0.3s, transform 0.3s; /* Smooth transition */
+}
+
+.btn-primary:hover {
+    background-color: #0097a7;
+    border-color: #0097a7;
+    transform: scale(1.05); /* Slightly enlarge button */
+}
+
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+html, body {
+    height: 100%;
+    scrollbar-width: thin; /* For Firefox */
+scrollbar-color: #00d4ff #1c1c3b;
+overflow: auto;
+}
+
+.navbar {
+    background: linear-gradient(90deg, #00d4ff, #6a0d91);
+    background-color: #0a0a2b !important;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    height: 70px; /* Explicitly set height for navbar */
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 70px); /* Full viewport height minus navbar height */
+    margin-top: 250px; /* Space for fixed navbar */
+    padding-bottom: 20px; /* Padding to prevent cut-off */
+
+}
+
+.calculator {
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.6);
+    width: 90%;
+    max-width: 500px; /* Max width for larger screens */
+    margin: 10px auto;
+    box-sizing: border-box;
+    margin-top: -320px;
+}
+
+.form-group label {
+    font-size: 1.2rem;
+    color: #00d4ff;
+}
+
+.form-control {
+    height: 60px; /* Match the height with the input in systems2.html */
+    font-size: 1.2rem;
+    border-radius: 5px;
+    background: #1c1c3b; /* Match the background */
+    color: #00d4ff; /* Match the text color */
+}
+
+.input-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+#input1 {
+    flex: 2;
+    width: 360px;
+    margin-right: 10px;
+}
+
+#input2 {
+    width: 20px;
+    flex: 1;
+}
+
+button {
+    background: #171752;
+    color: #00d4ff;
+    border: none;
+    font-size: 1.5rem;
+    border-radius: 5px;
+    padding: 20px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background: #0a0a2b;
+    color: #e0e4f1;
+}
+
+button.btn-primary {
+    background: #00d4ff;
+    color: #171752;
+}
+
+button.btn-primary:hover {
+    background: #00a8e0;
+    color: #171752;
+}
+
+.result {
+    margin-top: 20px;
+    font-size: 1.2rem;
+    color: #00d4ff;
+}
+::-webkit-scrollbar {
+width: 18px; /* Width of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+background: #1c1c3b; /* Track background color */
+}
+
+::-webkit-scrollbar-thumb {
+background: #00d4ff; /* Scrollbar color */
+border-radius: 10px; /* Rounded corners */
+}
+
+::-webkit-scrollbar-thumb:hover {
+background: #00a8e0; /* Hover color */
+}
+h1 {
+    font-size: 3rem;
+    margin-bottom: 50px;
+    color: #00d4ff;
+    text-shadow: 0px 0px 10px #00d4ff;
+}
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.card {
+    background-color: #1c1c3b;
+    border-radius: 15px;
+    width: 300px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0px 0px 15px rgba(0, 212, 255, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0px 0px 25px rgba(0, 212, 255, 0.6);
+    scale : 100%;
+}
+.card a{
+    color:aqua;
+}
+.card a:hover {
+    color: #ff007f;
+    scale: 110% ; /* Magenta accent */
+}
+
+.card h3 {
+    font-size: 1.5rem;
+    color: #ff007f;
+    margin-bottom: 20px;
+}
+
+.card p {
+    font-size: 1rem;
+    color: #cfd7e6;
+}
+
+.input-container {
+    display: flex;
+    align-items: center; /* Vertically center the inputs */
+    width: 100%; /* Ensure the container takes up the full width */
+}
+
+.input-small {
+    width :10px;
+    height: 50px;
+    flex: 0 0 15%; /* Make this input occupy 20% of the container's width */
+    padding: 10px;
+    margin-right: 15px; /* Add some space between the two inputs */
+    margin-bottom: 10px;
+}
+
+.input-large {
+    flex: 0 0 80%; /* Make this input occupy 70% of the container's width */
+    padding: 10px;
+    height: 50px;
+    margin-bottom: 10px;
+}
+
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.card {
+    animation: fadeInUp 1s ease;
+}

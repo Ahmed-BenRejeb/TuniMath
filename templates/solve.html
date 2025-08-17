@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equation Solver</title>
+    <link href="/static/style2.css" rel="stylesheet">
+    <link href="/static/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style3.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+         body {
+            background: linear-gradient(135deg, #0a0a2b, #4b1d8f, #00d4ff);
+            color: #e0e4f1;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            overflow: auto;
+        }
+
+        html, body {
+            height: 100%;
+            scrollbar-width: thin; 
+        scrollbar-color: #00d4ff #1c1c3b;
+        }
+
+        .navbar {
+            background: linear-gradient(90deg, #00d4ff, #6a0d91);
+            background-color: #0a0a2b !important;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            height: 70px;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: calc(100vh - 70px);
+            margin-top: 70px;
+            padding-bottom: 20px;
+        }
+
+        .calculator {
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.6);
+            width: 90%;
+            max-width: 500px;
+            margin: 20px auto;
+            box-sizing: border-box;
+        }
+
+        .form-group label {
+            font-size: 1.2rem;
+            color: #00d4ff;
+        }
+
+        .form-control {
+            height: 60px;
+            font-size: 1.2rem;
+            border-radius: 5px;
+            background: #1c1c3b;
+            color: #00d4ff;
+        }
+
+        .input-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        #input1 {
+            flex: 2;
+            width: 360px;
+            margin-right: 10px;
+        }
+
+        #input2 {
+            width: 20px;
+            flex: 1;
+        }
+
+        button {
+            background: #171752;
+            color: #00d4ff;
+            border: none;
+            font-size: 1.5rem;
+            border-radius: 5px;
+            padding: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background: #0a0a2b;
+            color: #e0e4f1;
+        }
+
+        button.btn-primary {
+            background: #00d4ff;
+            color: #171752;
+        }
+
+        button.btn-primary:hover {
+            background: #00a8e0;
+            color: #171752;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            color: #00d4ff;
+        }
+        ::-webkit-scrollbar {
+    width: 18px;
+}
+
+::-webkit-scrollbar-track {
+    background: #ff0077;;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #ff0077;;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #ff0077;;
+}
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">TuniMath</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarColor01">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/">Home
+                                <span class="visually-hidden">(current)</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/pricing">Pricing</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/about">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/contact">Contact</a>
+                        </li>
+                    </ul>
+                    <a class="d-flex" href="/logout"> Logout</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <div class="calculator">
+            <form id="solveForm">
+                <div class="input-row">
+                    <div class="form-group">
+                        <label for="equation">Equation:</label>
+                        <input type="text" class="form-control" id="input1" name="equation" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary mt-3">Solve</button>
+            </form>
+            <div id="result" class="result"></div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('solveForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const response = await fetch('/solve_equation', {
+                method: 'POST',
+                body: formData
+            });
+            const result = await response.json();
+            let resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '<h4>Solution:</h4>';
+            for (let key in result) {
+                resultDiv.innerHTML += `<p>${key} = ${result[key]}</p>`;
+            }
+        });
+    </script>
+</body>
+</html>

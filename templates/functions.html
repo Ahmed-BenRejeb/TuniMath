@@ -1,0 +1,127 @@
+{% extends "layout.html" %}
+
+
+
+{% block main %}
+<style>
+    .calculator {
+        display: flex;
+        flex-direction: column; /* Stack containers vertically */
+        justify-content: center;
+        align-items: center;
+        height: calc(100vh - 100px); /* Adjusted for navbar height */
+        margin-top: -1000px;
+    }
+
+
+
+</style>
+<link rel="stylesheet" href="/static/style3.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<div class="container d-flex justify-content-center align-items-center vh-100">
+
+    <div class="calculator">
+        <form method="POST" action="/plots">
+            <div class="input-container">
+                <input type="text" class="input-small" value="f(x) =" readonly>
+                <input type="text" id="display2" class="input-large" name="function" placeholder="Your function">
+            </div>
+
+            <div class="buttons">
+                <button class="btn btn-light" type="button" onclick="clearDisplay()">C</button>
+                <button class="btn btn-dark" type="button" onclick="appendToDisplay('/')">/</button>
+                <button class="btn btn-dark" type="button" onclick="appendToDisplay('*')">*</button>
+                <button class="btn btn-dark" type="button" onclick="appendToDisplay('-')">-</button>
+                <button class="btn btn-dark" type="button" onclick="appendToDisplay('+')">+</button>
+                <button class="btn btn-dark" type="button" onclick="appendToDisplay('.')">.</button>
+                <button class="btn btn-dark" type="button" onclick="appendToDisplay('e')">e</button>
+                <button class="btn btn-dark" type="button" onclick="appendToDisplay('cos(')">cos</button>
+                <button class="btn btn-dark" type="button" onclick="appendToDisplay('sin(')">sin</button>
+                <button class="btn btn-dark" type="button" onclick="appendToDisplay('tan(')">tan</button>
+                <button class="btn btn-dark" type="button" onclick="appendToDisplay('acos(')">acos</button>
+                <button class="btn btn-dark" type="button" onclick="appendToDisplay('asin(')">asin</button>
+                <button class="btn btn-dark" type="button" onclick="appendToDisplay('atan(')">atan</button>
+                <button class="btn btn-dark" type="button" onclick="appendToDisplay('exp(')">exp</button>
+                <button class="btn btn-dark" type="button" onclick="appendToDisplay('log(')">ln</button>
+                <button class="btn btn-dark" type="button" onclick="appendToDisplay('π')">π</button>
+                <button class="btn btn-dark" type="button" onclick="appendToDisplay('x')">x</button>
+                <button class="btn btn-dark" type="button" onclick="appendToDisplay('√')">√</button>
+                <button class="btn btn-dark" type="button" onclick="appendToDisplay('abs(')">|x|</button>
+                <button class="btn btn-dark" type="button" onclick="appendToDisplay('pow(')">x^y</button>
+                <button class="btn btn-dark" type="button" onclick="appendToDisplay('(')">(</button>
+                <button class="btn btn-dark" type="button" onclick="appendToDisplay(')')">)</button>
+                <button class="btn btn-dark" type="button" onclick="appendToDisplay('[')">[</button>
+                <button class="btn btn-dark" type="button" onclick="appendToDisplay(']')">]</button>
+                <button class="btn btn-dark" type="button" onclick="appendToDisplay('0')">0</button>
+                <button class="btn btn-dark" type="button" onclick="appendToDisplay('1')">1</button>
+                <button class="btn btn-dark" type="button" onclick="appendToDisplay('2')">2</button>
+                <button class="btn btn-dark" type="button" onclick="appendToDisplay('3')">3</button>
+                <button class="btn btn-dark" type="button" onclick="appendToDisplay('4')">4</button>
+                <button class="btn btn-dark" type="button" onclick="appendToDisplay('5')">5</button>
+                <button class="btn btn-dark" type="button" onclick="appendToDisplay('6')">6</button>
+                <button class="btn btn-dark" type="button" onclick="appendToDisplay('7')">7</button>
+                <button class="btn btn-dark" type="button" onclick="appendToDisplay('8')">8</button>
+                <button class="btn btn-dark" type="button" onclick="appendToDisplay('9')">9</button>
+                <button class="btn btn-primary" type="button" onclick="delete_last()">Delete</button>
+                <button class="btn btn-success" type="submit">=</button>
+            </div>
+        </form>
+
+
+</div>
+
+<script>
+
+
+    function appendToDisplay(value) {
+        document.getElementById('display2').value += value;
+    }
+
+    function clearDisplay() {
+        document.getElementById('display2').value = '';
+    }
+
+    function calculate() {
+        try {
+            const display = document.getElementById('display2');
+            let expression = display.value;
+
+            expression = expression.replace(/\bcos\(/g, 'np.cos(');
+            expression = expression.replace(/\tan\(/g, 'np.tan(');
+            expression = expression.replace(/\bsin\(/g, 'np.sin(');
+            expression = expression.replace(/\bacos\(/g, 'np.acos(');
+            expression = expression.replace(/\basin\(/g, 'np.asin(');
+            expression = expression.replace(/\batan\(/g, 'np.atan(');
+            expression = expression.replace(/\bexp\(/g, 'np.exp(');
+            expression = expression.replace(/\blog\(/g, 'np.log(');
+            expression = expression.replace(/\bsqrt\(/g, 'np.sqrt(');
+            expression = expression.replace(/\babs\(/g, 'np.abs(');
+
+
+            const pi = Math.round(Math.PI * 1000) / 1000;
+            const expValue = Math.round(Math.E * 1000) / 1000;
+            expression = expression.replace(/π/g, pi);
+            expression = expression.replace(/\be\b/g, expValue);
+
+            let result = eval(expression);
+            result = Math.round(result * 1000) / 1000;
+            display.value = result;
+        } catch (e) {
+            display.value = 'Error';
+        }
+    }
+
+    function delete_last() {
+        const display = document.getElementById("display2")
+        let x = display.value;
+        x = x.substring(0, x.length - 1);
+        display.value = x;
+    }
+
+
+
+
+</script>
+
+{% endblock %}
