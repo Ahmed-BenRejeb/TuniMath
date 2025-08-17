@@ -1,4 +1,4 @@
-# YOUR PROJECT TITLE: TUNIMATH
+# TuniMath
 #### Video Demo: [https://youtu.be/a2DnZhyhtwY]
 
 #### Description:
