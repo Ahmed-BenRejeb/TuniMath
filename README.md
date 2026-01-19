@@ -1,5 +1,3 @@
-# TuniMath
-#### Video Demo: [https://youtu.be/a2DnZhyhtwY]
 
 #### Description:
 As a second-year engineering student, I often faced difficulties when it came to verifying basic calculations and plotting graphs for various assignments and projects. This struggle led me to create this project with the goal of simplifying these tasks, particularly for students who might find themselves in the same situation I was in. The aim of this project is to provide an easy-to-use platform that combines essential mathematical tools and functionalities in one place, making it more accessible and efficient for students to perform calculations, solve equations, and visualize functions.
